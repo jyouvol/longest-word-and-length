@@ -1,0 +1,53 @@
+package main.java;
+
+public class LongestWordFinder {
+
+    public static void main(String[] args) {
+        LongestWordFinder finder = new LongestWordFinder();
+        String longestWord = finder.locateLongestWordFrom("NewYork Missouri Florida California SaintLouis LosAngeles SanFrancisco");
+        System.out.println("Longest word :: " +longestWord+ "and its length for the input string :: " + longestWord.length());
+    }
+
+
+    /**
+     * This method takes an input as string value to extract longest word
+     * Assumption is string is not null and has at least one Character
+     * This method returns the last computed longest word
+     * @param input
+     * @return last computed longest word
+     */
+
+    public String locateLongestWordFrom(String input) {
+
+        if (null == input) {
+            return null;
+        }
+        if (input.isEmpty()) {
+            return input;
+        }
+
+        String longestWord = "";
+        StringBuilder cache = new StringBuilder();
+        int longestWordLength = 0;
+        int currentWordLength = 0;
+
+        for (Character c : input.toCharArray()) {
+            if (!Character.isWhitespace(c)) {
+                cache.append(c);
+                currentWordLength++;
+            } else {
+                if (currentWordLength > longestWordLength) {
+                    longestWordLength = currentWordLength;
+                    longestWord = cache.toString();
+                }
+                cache = new StringBuilder();
+                currentWordLength = 0;
+
+            }
+        }
+        if (currentWordLength >= longestWordLength) {
+            longestWord = cache.toString();
+        }
+        return longestWord;
+    }
+}
